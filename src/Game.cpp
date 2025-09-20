@@ -19,7 +19,7 @@ bool Game::init()
 {
     audio_manager.initSounds();
 
-    gauge_test.initGaugeVisual(50, 200, 30, 90, 80);
+    gauge_test.initGaugeVisual(50, 200, 30, 90, 80, 1);
 
     return true;
 }
@@ -32,6 +32,7 @@ void Game::update(float dt)
     //std::cout << audio_manager.numQueued(audio_manager.getSounds().at("test")->getType()) << " is in the queue" << std::endl;
 
     audio_manager.playSounds();
+    gauge_test.updateGauge();
     gauge_test.updateGaugeVisual();
     gauge_test.flashBorder();
 
@@ -109,6 +110,9 @@ void Game::keyPressed(std::optional<sf::Event> event)
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
         gauge_test.switchFillOrEmpty(false);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+        gauge_test.pauseGauge(10);
     }
 }
 

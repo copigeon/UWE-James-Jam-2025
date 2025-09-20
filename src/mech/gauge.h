@@ -25,10 +25,12 @@ public:
 
 	//FUNCTIONS
 	void updateGauge(int amount);
+	void updateGauge();
 	void switchFillOrEmpty(bool booleanswitch);
-	void initGaugeVisual(int height, int width, int min, int max, int current);
+	void initGaugeVisual(int height, int width, int min, int max, int current, int new_interval);
 	void updateGaugeVisual();
 	void flashBorder();
+	void pauseGauge(int time);
 
 private:
 	//size of gauge
@@ -43,7 +45,7 @@ private:
 	//IF DECREASE OVER TIME - this is optional, a guage can decrease by intervention (action)
 	int interval;
 	//switch for if the gauge should be paused, default state is false
-	bool pause = false;
+	int pause = 0;
 	//default direction of guage is decrease, if gauge decrease is false the meter fills instead
 	bool gauge_decrease = true;
 
@@ -54,6 +56,9 @@ private:
 	//CALCULATE BLOCK SIZE DEPENDING ON CHOSEN WIDTH OF GAUGE RECTANGLE
 	// 300 / 100 = 3
 	float chunk = width / scale;
+
+	sf::Clock update_clock;
+	sf::Clock pause_clock;
 
 	sf::Vector2f screen_position = sf::Vector2f(200,200);
 	sf::Color gauge_colour = sf::Color::White;
