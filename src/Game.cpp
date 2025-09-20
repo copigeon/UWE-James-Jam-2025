@@ -2,9 +2,10 @@
 
 #include "Game.h"
 #include "audio/Sound.h"
+#include "mech/Gauge.h"
 
 
-Game::Game(sf::Window& game_window)
+Game::Game(sf::RenderWindow& game_window)
     : window(game_window)
 {
     srand(time(NULL));
@@ -17,6 +18,9 @@ Game::~Game()
 bool Game::init()
 {
     audio_manager.initSounds();
+
+    gauge_test.initGaugeVisual();
+
     return true;
 }
 
@@ -38,6 +42,10 @@ void Game::update(float dt)
 
 void Game::render()
 {
+    window.draw(gauge_test.getGaugeBox());
+    window.draw(gauge_test.getGaugeLeft());
+    window.draw(gauge_test.getGaugeRight());
+    window.draw(gauge_test.getGaugeMarker());
 }
 
 //EVENTS MOUSE
@@ -52,6 +60,8 @@ void Game::mousePressed(std::optional<sf::Event> event)
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)) {
         audio_manager.queueSound(audio_manager.getSounds().at("test"));
     }
+
+  
 }
 
 void Game::mouseReleased(std::optional<sf::Event> event)

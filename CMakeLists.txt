@@ -21,7 +21,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED true)
 #Define executable files
 add_executable(
 	UWEGAMESJAM2025
-	"src/main.cpp" "src/game.cpp" "src/Game.h"  "src/ThreadPool.h" "src/ThreadPool.cpp" "src/audio/Audio.h" "src/audio/Audio.cpp" "src/audio/Sound.cpp" "src/audio/Sound.h"  "src/Enums.h" "src/Structs.h")
+	"src/main.cpp" "src/game.cpp" "src/Game.h"  "src/ThreadPool.h" "src/ThreadPool.cpp" "src/audio/Audio.h" "src/audio/Audio.cpp" "src/audio/Sound.cpp" "src/audio/Sound.h"  "src/Enums.h" "src/Structs.h" "src/mech/Gauge.cpp" "src/mech/gauge.h")
 
 #Link the acquired libraries for use
 target_link_libraries(

@@ -14,11 +14,13 @@
 #include "Threadpool.h"
 #include "audio/Sound.h"
 #include "audio/Audio.h"
+#include "mech/Gauge.h"
+
 
 class Game
 {
 public:
-	Game(sf::Window& window);
+	Game(sf::RenderWindow& window);
 	~Game();
 	bool init();
 	void update(float dt);
@@ -59,7 +61,11 @@ public:
 	std::shared_ptr<Sound> test3;
 
 
+	//MECH
+	Gauge gauge_test;
+
+
 private:
-	sf::Window& window;
+	sf::RenderWindow& window;
 	
 };
