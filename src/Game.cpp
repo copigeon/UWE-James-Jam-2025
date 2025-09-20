@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "audio/Sound.h"
 #include "mech/Gauge.h"
+#include "mech/TypeCheck.h"
 
 
 Game::Game(sf::RenderWindow& game_window)
@@ -20,6 +21,8 @@ bool Game::init()
     audio_manager.initSounds();
 
     gauge_test.initGaugeVisual(50, 200, 30, 90, 80, 1);
+    typecheck_test.initDialogue();
+    typecheck_test.initPlayerDialogue();
 
     return true;
 }
@@ -35,6 +38,8 @@ void Game::update(float dt)
     gauge_test.updateGauge();
     gauge_test.updateGaugeVisual();
     gauge_test.flashBorder();
+
+    //std::cout << "stored string: " << std::string(typecheck_test.getPlayerInput()) << std::endl;
 
     /*
     tpool.enqueue([] {
@@ -59,6 +64,7 @@ void Game::mousePressed(std::optional<sf::Event> event)
     //audio_manager.playSound(test);
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
         audio_manager.queueSound(audio_manager.getSounds().at("key"));
+        std::cout << "stored string: " << std::string(typecheck_test.getPlayerInput()) << std::endl;
     }
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)) {
         audio_manager.queueSound(audio_manager.getSounds().at("test"));
@@ -114,11 +120,24 @@ void Game::keyPressed(std::optional<sf::Event> event)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
         gauge_test.pauseGauge(10);
     }
+
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F)) {
+        typecheck_test.speak();
+    }
 }
 
 void Game::keyReleased(std::optional<sf::Event> event)
 {
     //std::cout << "EVENT - KEY RELEASED" << std::endl;
+}
+
+//EVENTS TEXT ENTERED
+void Game::textEntered(std::optional<sf::Event> event)
+{
+        //TAKES THE STRING AND ADDS TO IT FOR TEXT ENTERED EVENT - NEED TO ACTIVATE THIS IN CERTAIN GAME STATE
+        std::string temp = typecheck_test.getPlayerInput() += event->getIf<sf::Event::TextEntered>()->unicode;
+        typecheck_test.setPlayerInput(temp);
 }
 
 //EVENTS TOUCH

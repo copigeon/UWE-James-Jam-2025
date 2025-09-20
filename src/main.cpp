@@ -65,6 +65,8 @@ int main()
             if (event->is<sf::Event::KeyPressed>()) { game.keyPressed(event); }
             // key released event
             if (event->is<sf::Event::KeyReleased>()) { game.keyReleased(event); }
+            // text entry
+            if (event->is<sf::Event::TextEntered>()) { game.textEntered(event); }
 
             //TOUCH EVENTS
 

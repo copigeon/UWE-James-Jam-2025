@@ -15,6 +15,7 @@
 #include "audio/Sound.h"
 #include "audio/Audio.h"
 #include "mech/Gauge.h"
+#include "mech/TypeCheck.h"
 
 
 class Game
@@ -38,6 +39,7 @@ public:
 	//KEY
 	void keyPressed(std::optional<sf::Event> event);
 	void keyReleased(std::optional<sf::Event> event);
+	void textEntered(std::optional<sf::Event> event);
 	//TOUCH
 	void touchBegan(std::optional<sf::Event> event);
 	void touchEnd(std::optional<sf::Event> event);
@@ -63,7 +65,7 @@ public:
 
 	//MECH
 	Gauge gauge_test;
-
+	TypeCheck typecheck_test;
 
 private:
 	sf::RenderWindow& window;
