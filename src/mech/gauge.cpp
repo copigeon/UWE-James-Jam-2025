@@ -36,13 +36,17 @@ void Gauge::updateGauge(int amount)
 	switch (gauge_decrease) {
 	case true:
 	{
-		current = current - amount;
-		break;
+		if (current >= 0) {
+			current = current - amount;
+			break;
+		}
 	}
 	case false:
 	{
-		current = current + amount;
-		break;
+		if (current < scale) {
+			current = current + amount;
+			break;
+		}
 	}
 	}
 }
@@ -52,48 +56,91 @@ void Gauge::switchFillOrEmpty(bool booleanswitch)
 	gauge_decrease = booleanswitch;
 }
 
-void Gauge::initGaugeVisual()
+void Gauge::initGaugeVisual(int new_height, int new_width, int new_min, int new_max, int new_current)
 {
+	chunk = new_width / scale;
+	current = new_current;
+	height = new_height;
+	width = new_width;
+	min = new_min;
+	max = new_max;
+
 	gauge_box.setSize(sf::Vector2f(width, height));
 	gauge_box.setPosition(screen_position);
 	gauge_box.setFillColor(sf::Color::White);
-	//gauge_box.setOutlineThickness(5);
+	gauge_box.setOutlineThickness(5);
 	gauge_box.setOutlineColor(sf::Color::Blue);
 
 	int left_width = (chunk * min);
 	gauge_left.setSize(sf::Vector2f(left_width, height));
-	gauge_left.setPosition(sf::Vector2f(gauge_box.getPosition().x, gauge_box.getPosition().y + 10));
+	gauge_left.setPosition(sf::Vector2f(gauge_box.getPosition().x, gauge_box.getPosition().y));
 	gauge_left.setFillColor(gauge_out_colour);
 
-	int right_width = width - (chunk*max);
+	int right_width = (chunk * (scale-max));
 	gauge_right.setSize(sf::Vector2f(right_width, height));
-	int temp_position = gauge_box.getPosition().x + (gauge_box.getSize().length() - right_width);
-	gauge_right.setPosition(sf::Vector2f(temp_position, gauge_box.getPosition().y+10));
+	int right_width_pos = (chunk * max);
+	int temp_position = gauge_box.getPosition().x + right_width_pos;
+	gauge_right.setPosition(sf::Vector2f(temp_position, gauge_box.getPosition().y));
 	gauge_right.setFillColor(gauge_out_colour);
 
-	temp_position = gauge_box.getPosition().x + (chunk*current);
+	int temp_position_2 = gauge_box.getPosition().x + (chunk*current);
 	gauge_marker.setSize(sf::Vector2f(chunk*10, height));
-	gauge_marker.setPosition(sf::Vector2f(temp_position, gauge_box.getPosition().y + 10));
+	gauge_marker.setPosition(sf::Vector2f(temp_position_2, gauge_box.getPosition().y));
 	gauge_marker.setFillColor(sf::Color::Green);
 
 }
 
 void Gauge::updateGaugeVisual()
 {
-	int temp_position = gauge_box.getPosition().x + current;
-	gauge_marker.setPosition(sf::Vector2f(temp_position, gauge_box.getPosition().y));
 
-	if (pause) {
-		gauge_box.setOutlineColor(sf::Color::Blue);
-	}
-	else {
-		if (gauge_decrease) {
-			gauge_box.setOutlineColor(sf::Color::Red);
+	if (current >= 0 && current < scale) {
+		int temp_position = gauge_box.getPosition().x + (chunk * current);
+		gauge_marker.setPosition(sf::Vector2f(temp_position, gauge_box.getPosition().y));
+
+		if (pause) {
+			gauge_box.setOutlineColor(sf::Color::Blue);
 		}
 		else {
-			gauge_box.setOutlineColor(sf::Color::Green);
+			if (current > min && current < max) {
+				if (gauge_decrease) {
+					gauge_box.setOutlineColor(sf::Color::Red);
+				}
+				else {
+					gauge_box.setOutlineColor(sf::Color::Green);
+				}
+			}
 		}
 	}
+}
 
+void Gauge::flashBorder()
+{
+	if (current < min) {
+		if (flashing_clock.getElapsedTime().asSeconds() > 0.5) {
+
+			if (gauge_box.getOutlineColor() == sf::Color::Red) {
+				gauge_box.setOutlineColor(sf::Color::Magenta);
+			}
+			else {
+				gauge_box.setOutlineColor(sf::Color::Red);
+			}
+			flashing_clock.restart();
+		}
+	}
+	else if (current > max) {
+		if (flashing_clock.getElapsedTime().asSeconds() > 0.5) {
+
+			if (gauge_box.getOutlineColor() == sf::Color::Blue) {
+				gauge_box.setOutlineColor(sf::Color::Magenta);
+			}
+			else {
+				gauge_box.setOutlineColor(sf::Color::Blue);
+			}
+			flashing_clock.restart();
+		}
+	}
+	else {
+		return;
+	}
 }
 

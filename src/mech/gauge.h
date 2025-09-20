@@ -26,12 +26,13 @@ public:
 	//FUNCTIONS
 	void updateGauge(int amount);
 	void switchFillOrEmpty(bool booleanswitch);
-	void initGaugeVisual();
+	void initGaugeVisual(int height, int width, int min, int max, int current);
 	void updateGaugeVisual();
+	void flashBorder();
 
 private:
 	//size of gauge
-	int size = 100;
+	int scale = 100;
 	//the minimum and maximum values for the guage
 	int max = 70;
 	int min = 20;
@@ -52,7 +53,7 @@ private:
 
 	//CALCULATE BLOCK SIZE DEPENDING ON CHOSEN WIDTH OF GAUGE RECTANGLE
 	// 300 / 100 = 3
-	int chunk = width / size;
+	float chunk = width / scale;
 
 	sf::Vector2f screen_position = sf::Vector2f(200,200);
 	sf::Color gauge_colour = sf::Color::White;
@@ -63,5 +64,9 @@ private:
 	sf::RectangleShape gauge_left;
 	sf::RectangleShape gauge_right;
 	sf::RectangleShape gauge_marker;
+
+	//flash border
+	sf::Clock flashing_clock;
+
 
 };
