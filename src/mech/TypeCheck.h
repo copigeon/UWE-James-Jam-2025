@@ -24,7 +24,9 @@ public:
 	void initDialogue();
 	void initPlayerDialogue();
 	void speak();
+	void typingChallenge();
 	void compareStrings();
+	void recordPLayerInput(std::string text_entered);
 
 
 private:
@@ -34,5 +36,8 @@ private:
 
 	std::string player_input;
 
-	std::vector<std::string> vec_dialogue;
+	bool strike = false;
+	bool word_fail = false;
+
+	std::vector<std::string> vec_challenge;
 };

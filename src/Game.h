@@ -66,6 +66,7 @@ public:
 	//MECH
 	Gauge gauge_test;
 	TypeCheck typecheck_test;
+	std::string text_entered;
 
 private:
 	sf::RenderWindow& window;

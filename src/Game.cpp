@@ -24,6 +24,8 @@ bool Game::init()
     typecheck_test.initDialogue();
     typecheck_test.initPlayerDialogue();
 
+    typecheck_test.typingChallenge();
+
     return true;
 }
 
@@ -125,6 +127,8 @@ void Game::keyPressed(std::optional<sf::Event> event)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F)) {
         typecheck_test.speak();
     }
+
+
 }
 
 void Game::keyReleased(std::optional<sf::Event> event)
@@ -136,8 +140,8 @@ void Game::keyReleased(std::optional<sf::Event> event)
 void Game::textEntered(std::optional<sf::Event> event)
 {
         //TAKES THE STRING AND ADDS TO IT FOR TEXT ENTERED EVENT - NEED TO ACTIVATE THIS IN CERTAIN GAME STATE
-        std::string temp = typecheck_test.getPlayerInput() += event->getIf<sf::Event::TextEntered>()->unicode;
-        typecheck_test.setPlayerInput(temp);
+        text_entered = event->getIf<sf::Event::TextEntered>()->unicode;
+        typecheck_test.recordPLayerInput(text_entered);
 }
 
 //EVENTS TOUCH
