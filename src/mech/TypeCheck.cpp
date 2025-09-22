@@ -90,14 +90,40 @@ void TypeCheck::typingChallenge()
 	size_t pos = 0;
 	std::string token;
 
+	sf::Font font;
+
+	if (!font.openFromFile("./Data/Fonts/zx-spectrum.ttf"))
+	{
+		// error...
+		std::cout << "FONT DID NOT LOAD" << std::endl;
+	}
+	//CREATE THE TEXT ELEMENT
+
+	//START HERE TOMORROW THIS IS THE LOOP THAT BE BROKEN
+
+	sf::Text temp_text(font);
+
 	//BREAK DOWN BY DELIMITER INTO PARTS ARRAY
 	while ((pos = line.find(delimiter)) != std::string::npos) {
 		token = line.substr(0, pos);
 		line.erase(0, pos + delimiter.length());
 		vec_challenge.emplace_back(token);
+
+		temp_text.setString(token);
+		temp_text.setFont(font);
 	}
-	// FINAL PART AFTER DELIMITER
-	vec_challenge.emplace_back(line);
+
+	vec_challenge_text[0].setPosition(sf::Vector2f(100,100));
+	int i = 1;
+	while (i < vec_challenge_text.size()) {
+		{
+			vec_challenge_text[i].setPosition(sf::Vector2f((vec_challenge_text[i - 1].getPosition().x + temp_text.getGlobalBounds().size.x), 0));
+			i++;
+		}
+
+		// FINAL PART AFTER DELIMITER
+		vec_challenge.emplace_back(line);
+	}
 
 	//std::cout << "challenge : " << vec_challenge[2] << std::endl;
 }

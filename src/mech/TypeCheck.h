@@ -40,4 +40,8 @@ private:
 	bool word_fail = false;
 
 	std::vector<std::string> vec_challenge;
+	std::vector<sf::Text> vec_challenge_text;
+	
+	//MUST ADD TEXT CLASS AND FONT CLASS
+
 };

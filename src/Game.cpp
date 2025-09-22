@@ -26,6 +26,16 @@ bool Game::init()
 
     typecheck_test.typingChallenge();
 
+    // Open a font
+    const sf::Font font("arial.ttf");
+
+    // Create a text
+    sf::Text text(font, "hello");
+    text.setCharacterSize(30);
+    text.setStyle(sf::Text::Bold);
+    text.setFillColor(sf::Color::Red);
+
+
     return true;
 }
 
