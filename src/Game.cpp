@@ -23,18 +23,7 @@ bool Game::init()
     gauge_test.initGaugeVisual(50, 200, 30, 90, 80, 1);
     typecheck_test.initDialogue();
     typecheck_test.initPlayerDialogue();
-
     typecheck_test.typingChallenge();
-
-    // Open a font
-    const sf::Font font("arial.ttf");
-
-    // Create a text
-    sf::Text text(font, "hello");
-    text.setCharacterSize(30);
-    text.setStyle(sf::Text::Bold);
-    text.setFillColor(sf::Color::Red);
-
 
     return true;
 }
@@ -66,6 +55,11 @@ void Game::render()
     window.draw(gauge_test.getGaugeLeft());
     window.draw(gauge_test.getGaugeRight());
     window.draw(gauge_test.getGaugeMarker());
+
+    for (auto& text : typecheck_test.getVecChallengeText()) {
+        window.draw(text);
+    }
+
 }
 
 //EVENTS MOUSE

@@ -17,6 +17,7 @@ public:
 	//GETTERS AND SETTERS
 	void setPlayerInput(std::string string);
 	std::string getPlayerInput();
+	std::vector<sf::Text> getVecChallengeText();
 
 
 	//FUNCTIONS
@@ -27,7 +28,6 @@ public:
 	void typingChallenge();
 	void compareStrings();
 	void recordPLayerInput(std::string text_entered);
-
 
 private:
 
@@ -41,6 +41,8 @@ private:
 
 	std::vector<std::string> vec_challenge;
 	std::vector<sf::Text> vec_challenge_text;
+
+	sf::Font font;
 	
 	//MUST ADD TEXT CLASS AND FONT CLASS
 
