@@ -136,9 +136,9 @@ void TypeCheck::typingChallenge()
 
 void TypeCheck::compareStrings()
 {
-
+	std::cout << "TEXT ENTERED" << std::endl;
 	//TRIGGER ON SPACE INPUT
-	if (player_input == "" || player_input == "\r") {
+	if (player_input == "") {
 		int word_count = vec_challenge_text.size() - vec_challenge.size();
 		if (strike) {
 			//no input twice void next word
