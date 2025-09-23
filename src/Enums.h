@@ -5,6 +5,7 @@ enum GameState
 	MENU,
 	INTRO,
 	PLAYING,
+	TYPECHECK,
 	GAME_WON,
 	GAME_LOST,
 	QUIT,

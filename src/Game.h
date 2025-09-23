@@ -16,6 +16,7 @@
 #include "audio/Audio.h"
 #include "mech/Gauge.h"
 #include "mech/TypeCheck.h"
+#include "states/Menu.h"
 
 
 class Game
@@ -62,6 +63,10 @@ public:
 	std::shared_ptr<Sound> test2;
 	std::shared_ptr<Sound> test3;
 
+
+	//GAMESTATES
+	GameState game_state = MENU;
+	Menu menu;
 
 	//MECH
 	Gauge gauge_test;
