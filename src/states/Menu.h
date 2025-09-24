@@ -22,6 +22,8 @@ public:
 
 	void menuAnimate();
 
+	void animateSlide(Menu_Graphics graphic, float lapse, int movement_x, int movement_y, int x_end_pos, int y_end_pos);
+
 private:
 
 	sf::RectangleShape menu_background;
@@ -31,5 +33,7 @@ private:
 
 	sf::RenderWindow& passed_window;
 
-	sf::Clock animate;
+	sf::Clock animation_clock;
+
+	Menu_Graphics graphics;
 };

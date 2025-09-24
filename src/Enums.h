@@ -20,3 +20,9 @@ enum Audiotypes
 	PLAYER,
 	NARRATIVE,
 };
+
+enum Menu_Graphics
+{
+	BACKGROUND,
+	FOREGROUND,
+};

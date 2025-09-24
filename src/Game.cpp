@@ -54,8 +54,10 @@ void Game::update(float dt)
     switch (game_state) {
     case MENU:
     {
-        std::cout << "GAMESTATE - MENU" << std::endl;
-        menu.menuAnimate();
+        //std::cout << "GAMESTATE - MENU" << std::endl;
+        //menu.menuAnimate();
+        //GRAPHIC LAPSE X Y END 
+        menu.animateSlide(Menu_Graphics::FOREGROUND, 0.05, 5, 0, 0, 0);
         break;
     }
     case INTRO:
@@ -94,7 +96,7 @@ void Game::render()
     switch (game_state) {
     case MENU:
     {
-        std::cout << "GAMESTATE - MENU" << std::endl;
+        //std::cout << "GAMESTATE - MENU" << std::endl;
 
         menu.menuDraw();
 

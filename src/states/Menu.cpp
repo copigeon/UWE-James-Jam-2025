@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <math.h>;
 
 #include "Menu.h"
 #include "../Enums.h"
@@ -37,9 +38,54 @@ void Menu::menuDraw()
 void Menu::menuAnimate()
 {
 	if (menu_foreground.getPosition().x < -100) {
-		if (animate.getElapsedTime().asSeconds() > 0.1) {
+		if (animation_clock.getElapsedTime().asSeconds() > 0.1) {
 			menu_foreground.setPosition(sf::Vector2f(menu_foreground.getPosition().x + 5, 0));
-			animate.restart();
+			animation_clock.restart();
 		}
 	}
 }
+
+void Menu::animateSlide(Menu_Graphics graphic, float lapse, int movement_x, int movement_y, int x_end_pos, int y_end_pos)
+{
+	sf::RectangleShape& image = menu_foreground;
+	switch (graphic) {
+	case BACKGROUND:
+	{
+		//std::cout << "BACKGROUND SELECTED" << std::endl;
+		image = menu_background;
+		break;
+	}
+	case FOREGROUND:
+	{
+		//std::cout << "FOREGROUND SELECTED" << std::endl;
+		image = menu_foreground;
+		break;
+	}
+	}
+
+	if (image.getPosition() != sf::Vector2f(x_end_pos, y_end_pos)) {
+
+		if (animation_clock.getElapsedTime().asSeconds() > lapse) {
+			int check_x = std::abs(x_end_pos - movement_x);
+			int check_y = std::abs(y_end_pos - movement_y);
+
+			if (check_x < movement_x) {
+				image.setPosition(sf::Vector2f(x_end_pos, image.getPosition().y));
+			}
+			else {
+
+				image.setPosition(sf::Vector2f(image.getPosition().x + movement_x, image.getPosition().y + movement_y));
+			}
+
+			if (check_y < movement_y) {
+				image.setPosition(sf::Vector2f(image.getPosition().x, y_end_pos));
+			}
+			else {
+				image.setPosition(sf::Vector2f(image.getPosition().x + movement_x, image.getPosition().y + movement_y));
+			}
+
+			animation_clock.restart();
+		}
+	}
+}
+
