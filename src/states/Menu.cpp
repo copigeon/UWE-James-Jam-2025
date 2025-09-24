@@ -27,26 +27,30 @@ void Menu::initMenu()
 	menu_foreground.setPosition(sf::Vector2f(-500, 0));
 	if (!foreground_texture.loadFromFile("./Data/Images/menu_2.png")) { std::cout << "BG DID NOT LOAD" << std::endl; }
 	menu_foreground.setTexture(&foreground_texture);
+
+	menu_name.setSize(sf::Vector2f(350, 250));
+	menu_name.setPosition(sf::Vector2f(620, 450));
+	if (!name_texture.loadFromFile("./Data/Images/menu_name.png")) { std::cout << "BG DID NOT LOAD" << std::endl; }
+	menu_name.setTexture(&name_texture);
+
+	map_graphics = {
+		//UPDATE THIS MAP FROM ENUM
+		{"foreground", menu_foreground},
+		{"background",	menu_background},
+		{"name", menu_name}
+	};
 }
 
 void Menu::menuDraw()
 {
 	passed_window.draw(menu_background);
 	passed_window.draw(menu_foreground);
-}
-
-void Menu::menuAnimate()
-{
-	if (menu_foreground.getPosition().x < -100) {
-		if (animation_clock.getElapsedTime().asSeconds() > 0.1) {
-			menu_foreground.setPosition(sf::Vector2f(menu_foreground.getPosition().x + 5, 0));
-			animation_clock.restart();
-		}
-	}
+	passed_window.draw(menu_name);
 }
 
 void Menu::animateSlide(Menu_Graphics graphic, float lapse, int movement_x, int movement_y, int x_end_pos, int y_end_pos)
 {
+
 	sf::RectangleShape& image = menu_foreground;
 	switch (graphic) {
 	case BACKGROUND:
@@ -62,6 +66,8 @@ void Menu::animateSlide(Menu_Graphics graphic, float lapse, int movement_x, int 
 		break;
 	}
 	}
+
+	//sf::RectangleShape& image = map_graphics[graphic];
 
 	if (image.getPosition() != sf::Vector2f(x_end_pos, y_end_pos)) {
 
@@ -86,6 +92,31 @@ void Menu::animateSlide(Menu_Graphics graphic, float lapse, int movement_x, int 
 
 			animation_clock.restart();
 		}
+	}
+}
+
+void Menu::flashGraphic(Menu_Graphics graphic, sf::Color colour, float lapse)
+{
+	sf::RectangleShape& image = menu_name;
+	switch (graphic) {
+	case NAME:
+	{
+		//std::cout << "BACKGROUND SELECTED" << std::endl;
+		image = menu_name;
+		break;
+	}
+	}
+
+	if (flash_clock.getElapsedTime().asSeconds() > lapse) {
+		if (flash) {
+			image.setFillColor(colour);
+			flash = false;
+		}
+		else {
+			image.setFillColor(sf::Color::White);
+			flash = true;
+		}
+		flash_clock.restart();
 	}
 }
 

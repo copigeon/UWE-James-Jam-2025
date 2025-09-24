@@ -19,10 +19,8 @@ public:
 
 	void initMenu();
 	void menuDraw();
-
-	void menuAnimate();
-
 	void animateSlide(Menu_Graphics graphic, float lapse, int movement_x, int movement_y, int x_end_pos, int y_end_pos);
+	void flashGraphic(Menu_Graphics graphic, sf::Color colour, float lapse);
 
 private:
 
@@ -30,10 +28,16 @@ private:
 	sf::Texture menu_texture;
 	sf::RectangleShape menu_foreground;
 	sf::Texture foreground_texture;
+	sf::RectangleShape menu_name;
+	sf::Texture name_texture;
 
 	sf::RenderWindow& passed_window;
 
 	sf::Clock animation_clock;
+	sf::Clock flash_clock;
+	bool flash;
+
+	std::unordered_map<std::string, sf::RectangleShape> map_graphics;
 
 	Menu_Graphics graphics;
 };

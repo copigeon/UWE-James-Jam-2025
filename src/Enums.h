@@ -25,4 +25,5 @@ enum Menu_Graphics
 {
 	BACKGROUND,
 	FOREGROUND,
+	NAME,
 };

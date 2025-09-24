@@ -57,7 +57,8 @@ void Game::update(float dt)
         //std::cout << "GAMESTATE - MENU" << std::endl;
         //menu.menuAnimate();
         //GRAPHIC LAPSE X Y END 
-        menu.animateSlide(Menu_Graphics::FOREGROUND, 0.05, 5, 0, 0, 0);
+        menu.animateSlide(FOREGROUND, 0.01, 5, 0, 0, 0);
+        menu.flashGraphic(NAME, sf::Color::Magenta, 0.5);
         break;
     }
     case INTRO:
